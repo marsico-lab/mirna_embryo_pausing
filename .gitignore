@@ -1,0 +1,6 @@
+storage
+*.log
+__pycache__/
+*.py[cod]
+.vscode/
+mirna_embryo_pausing_priv
