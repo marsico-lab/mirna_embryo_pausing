@@ -6,7 +6,7 @@ This is the public repository for the bioinformatics analyses of the paper title
 "Combinatorial microRNA activity is essential for the transition of pluripotent cells from
 proliferation into dormancy" by D Iyer, L Moyon et al.
 
-The code will be progressively pushed from the private repository @ Helmholtz Munich from the 2023/10/19 to the 2023/10/24 (Lambert Moyon is currently travelling with limited remote access).
+The code will be progressively pushed from the private repository @ Helmholtz Munich from the ~~2023/10/19 to the 2023/10/24~~ 2023/10/24 to the 2023/10/27(Lambert Moyon is currently travelling with limited remote access).
 
 ### Analyses code to upload
 

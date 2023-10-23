@@ -4,3 +4,4 @@ __pycache__/
 *.py[cod]
 .vscode/
 mirna_embryo_pausing_priv
+.ipynb_checkpoints/
