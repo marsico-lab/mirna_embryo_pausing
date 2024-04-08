@@ -1,0 +1,35 @@
+name: dp_r
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - r-base
+  - bioconductor-vsn
+  - bioconductor-limma
+  - bioconductor-deseq2
+  - bioconductor-summarizedexperiment
+  - bioconductor-enhancedvolcano
+  - bioconductor-ruvseq
+  - bioconductor-nanostringqcpro
+  - ca-certificates
+  - openssl
+  - r-dplyr
+  - r-magrittr
+  - r-tidyr
+  - r-tibble
+  - r-ggplot2
+  - r-stringr
+  - r-rcolorbrewer
+  - r-broom
+  - r-matrixstats
+  - r-mass
+  - r-envstats
+  - r-pheatmap
+  - bioconductor-genomeinfodbdata
+  - r-tidyverse
+  - bioconductor-org.hs.eg.db
+  - radian
+  - r-raster
+  - r-sp
+  - r-insight
