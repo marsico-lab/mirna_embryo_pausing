@@ -1,0 +1,94 @@
+input_counts_file = "./results/X_prot_medScale_noDup.tsv"
+metadata_table_file = "./results/metadata_samples.tsv"
+
+# This table will be used to subset the samples if required.
+input_samples_list = "./design_all-samples.tsv"
+
+# Genes will be filtered as follow: genes that have at least 10 reads in at least one of the samples will be kept.
+minimum_rawcount_perGeneAndSample = 1
+
+outputdir = "./results/DEA/"
+
+output_normalizedCounts_file = paste(outputdir, "all_counts_merged_normalized.tsv", sep="")
+outputdir_diffExp = paste(outputdir, "LIMMA_diffExp/", sep="")
+
+library(edgeR)
+
+# Load datasets
+df_counts = read.table(input_counts_file, header=T, row.names=1, sep="\t", check.names=F)
+df_counts = df_counts # in LIMMA, samples are in columns.
+
+head(df_counts)
+
+df_metadata
+df_metadata = read.table(metadata_table_file, header=T, row.names=1, sep="\t")
+
+head(df_metadata)
+
+#Note : here for proteomics we use the sample descriptive name, not the coded ABK one.
+
+rownames(df_metadata) = df_metadata$sample
+head(df_metadata)
+df_metadata = read.table(metadata_table_file, header=T, row.names=F, sep="\t")
+
+# Load datasets.
+df_counts = read.table(input_counts_file, header=T, row.names=NULL, sep="\t", check.names=F)
+df_counts = df_counts # in LIMMA, samples are in columns.
+
+#df_metadata = read.table(metadata_table_file, header=T, row.names=F, sep="\t")
+#df_metadata = read.table(metadata_table_file, header=T, row.names=0, sep="\t")
+
+df_metadata = read.table(metadata_table_file, header=T, sep="\t")
+
+#Note : here for proteomics we use the sample descriptive name, not the coded ABK one.
+
+rownames(df_metadata) = df_metadata$sample
+head(df_metadata)
+
+coldata = df_metadata[,c("group", "replicate")]
+samples_selected = read.table(input_samples_list, header=F)$V1
+samples_selected
+coldata
+
+# Select the subset of samples of interest.
+coldata_sub = coldata[coldata$group %in% samples_selected,]
+df_counts_sub = df_counts[,row.names(coldata_sub)]
+df_counts_sub
+group = coldata_sub$group
+
+# Drop NA
+df_counts_sub = na.omit(df_counts_sub)
+
+# Create a Limma object
+d0 = DGEList(df_counts_sub)
+
+# Calculate normalization factors.
+d0 <- calcNormFactors(d0)
+
+# Filter low counts genes
+drop <- which(apply(cpm(d0), 1, max) < minimum_rawcount_perGeneAndSample)
+d <- d0[-drop,]
+dim(d) # number of genes left
+d = d0
+mm = model.matrix(~0 + group)
+output_plot_voom = paste(outputdir,"VOOM.pdf", sep="")
+pdf(output_plot_voom) ;
+y = voom(d, mm, plot=T)
+dev.off() ;
+fit = lmFit(y, mm)
+v1 = "E14_Pause"
+v2 = "E14_WT"
+print(paste(v1," VS ",v2,sep="")) ;
+contr = makeContrasts(paste(paste("group",v1,sep="")," - ",paste("group",v2,sep=""), sep=""), levels=colnames(coef(fit)))
+
+# Estimate contrast for each gene
+tmp = contrasts.fit(fit, contr)
+tmp = eBayes(tmp)# robust=TRUE, trend=TRUE)
+tmp_table = topTable(tmp, sort.by="P", n=Inf)
+output_file_diffExp = paste(outputdir_diffExp,"/",v1,"_VS_",v2,"_FC.tsv",sep="")
+write.table(tmp_table,
+output_file_diffExp,
+quote=F,
+sep="\t",
+row.names=TRUE,
+col.names=TRUE) ;

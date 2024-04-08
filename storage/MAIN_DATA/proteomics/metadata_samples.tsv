@@ -1,0 +1,7 @@
+sample	group	replicate	marker	color
+E14_Pause1	E14_Pause	1	o	#cc5230
+E14_Pause2	E14_Pause	2	+	#cc5230
+E14_Pause3	E14_Pause	3	.	#cc5230
+E14_WT1	E14_WT	1	o	#00b8c1
+E14_WT2	E14_WT	2	+	#00b8c1
+E14_WT3	E14_WT	3	.	#00b8c1
