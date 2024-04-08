@@ -6,19 +6,14 @@ This is the public repository for the bioinformatics analyses of the paper title
 "Combinatorial microRNA activity is essential for the transition of pluripotent cells from
 proliferation into dormancy" by D Iyer, L Moyon et al.
 
-The code will be progressively pushed from the private repository @ Helmholtz Munich from the ~~2023/10/19 to the 2023/10/24~~ ~~2023/10/24 to the 2023/10/27~~  2023/11/06 to the 2023/11/10.
+## Analyses
 
-### Analyses code to upload
+- miRNA small RNA-seq differential expression analysis results: [README](subprojects/mirna_ivv_ivt_dea_integration/README.md)
+- proteomics analysis: [README](subprojects/proteomics_ivt/README.md)
+- multiomics network analysis: [README](subprojects/multiomics_network_integration/README.md)
+- miRNA promoters motif analysis: [README](subprojects/promoters_miRNAs_motifs/README.md)
+- Cut-and-tag of TFE3 candidate TF analysis: [README](subprojects/cutandtag_tfe3/README.md)
 
-- [ ] miRNA-seq DEA (in vivo, in vitro)
-- [ ] miRNA-seq DEA results processing (clustering and analyses)
-- [ ] Proteomics DEA
-- [ ] Multiomic network integration
-- [ ] promoters motifs analysis
-- [ ] cut&tag analysis
+## Changelog
 
-In addition, main data files will be added to ease indepedant reproducibility of each step:
-
-- [ ] miRNA-seq logFCs values and clusters
-- [ ] proteomics logFCs
-- [ ] promoters
+- 2024-04-08: added all notebooks for data analysis and visualization + V1.0.0 release.
